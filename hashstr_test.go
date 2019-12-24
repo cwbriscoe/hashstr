@@ -11,13 +11,6 @@ import (
 	"testing"
 )
 
-func TestExample(t *testing.T) {
-	content := []byte("This is some file content")
-	sum := sha1.Sum(content)
-	str := Sha1ToLowerString(sum)
-	t.Error(str)
-}
-
 func TestSha1ToUpperString(t *testing.T) {
 	for i := 0; i < 1000; i++ {
 		sz := rand.Intn(1000)
@@ -98,30 +91,6 @@ func BenchmarkSprintfSha1Lower(b *testing.B) {
 	})
 }
 
-func BenchmarkSha1ToUpperString(b *testing.B) {
-	v := []byte(strings.Repeat("X", 2000))
-	sum := sha1.Sum(v)
-
-	b.ResetTimer()
-	b.RunParallel(func(pb *testing.PB) {
-		for pb.Next() {
-			_ = Sha1ToUpperString(sum)
-		}
-	})
-}
-
-func BenchmarkSha1ToLowerString(b *testing.B) {
-	v := []byte(strings.Repeat("X", 2000))
-	sum := sha1.Sum(v)
-
-	b.ResetTimer()
-	b.RunParallel(func(pb *testing.PB) {
-		for pb.Next() {
-			_ = Sha1ToLowerString(sum)
-		}
-	})
-}
-
 func BenchmarkSprintfMd5Upper(b *testing.B) {
 	v := []byte(strings.Repeat("X", 2000))
 	sum := md5.Sum(v)
@@ -142,6 +111,30 @@ func BenchmarkSprintfMd5Lower(b *testing.B) {
 	b.RunParallel(func(pb *testing.PB) {
 		for pb.Next() {
 			_ = fmt.Sprintf("%x", sum)
+		}
+	})
+}
+
+func BenchmarkSha1ToUpperString(b *testing.B) {
+	v := []byte(strings.Repeat("X", 2000))
+	sum := sha1.Sum(v)
+
+	b.ResetTimer()
+	b.RunParallel(func(pb *testing.PB) {
+		for pb.Next() {
+			_ = Sha1ToUpperString(sum)
+		}
+	})
+}
+
+func BenchmarkSha1ToLowerString(b *testing.B) {
+	v := []byte(strings.Repeat("X", 2000))
+	sum := sha1.Sum(v)
+
+	b.ResetTimer()
+	b.RunParallel(func(pb *testing.PB) {
+		for pb.Next() {
+			_ = Sha1ToLowerString(sum)
 		}
 	})
 }
