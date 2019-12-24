@@ -1,4 +1,5 @@
 // Copyright 2019 Christopher Briscoe.  All rights reserved. 
+
 package hashstr
 
 import (

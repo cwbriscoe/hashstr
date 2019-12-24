@@ -1,5 +1,7 @@
 # hashstr
 
+# Before I wrote this library, I did not know about the `encoding/hex` package.  As you can see by the last benchmark, it is the fastest option and does not require a separate library.  I would recommend using that. 
+
 A faster conversion of []byte to hex string for cryptographic sum functions in golang.
 
 It is over 3x faster than using `Sprintf` on my machine.
@@ -7,14 +9,11 @@ It is over 3x faster than using `Sprintf` on my machine.
 ### Benchmarks:
 
 ```
-BenchmarkSprintfSha1Upper-12            12686316                85.6 ns/op
-BenchmarkSprintfSha1Lower-12            14707431                81.0 ns/op
-BenchmarkSha1ToUpperString-12           46048754                25.4 ns/op
-BenchmarkSha1ToLowerString-12           45884714                25.6 ns/op
-BenchmarkSprintfMd5Upper-12             16712253                72.2 ns/op
-BenchmarkSprintfMd5Lower-12             17371088                70.6 ns/op
-BenchmarkMd5ToUpperString-12            66416130                20.0 ns/op
-BenchmarkMd5ToLowerString-12            59609260                19.9 ns/op
+BenchmarkSprintfSha1-12         12970434                77.6 ns/op           112 B/op          3 allocs/op
+BenchmarkSprintfMd5-12          19735413                63.2 ns/op            64 B/op          3 allocs/op
+BenchmarkSha1-12                50396240                24.7 ns/op            48 B/op          1 allocs/op
+BenchmarkMd5-12                 71154963                17.7 ns/op            32 B/op          1 allocs/op
+BenchmarkHexEncoder-12          89067684                16.4 ns/op            32 B/op          1 allocs/op
 ```
 
 ### Example:

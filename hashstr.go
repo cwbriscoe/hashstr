@@ -42,18 +42,6 @@ var hexStrLowers = []byte(
 	"f0f1f2f3f4f5f6f7f8f9fafbfcfdfeff",
 )
 
-func convertBytesToString(size int, chars []byte, source []byte) string {
-	var sb strings.Builder
-	sb.Grow(size*2)
-	
-	for i := 0; i < size; i++ {
-		pos := int(source[i]) * 2
-		sb.Write(chars[pos:pos+2])
-	}
-
-	return sb.String()
-}
-
 // Sha1ToUpperString converts a SHA1 []byte hash into an uppercase hex string
 func Sha1ToUpperString(bytes [20]byte) string {
 	return convertBytesToString(20, hexStrUppers, bytes[0:20])
@@ -72,4 +60,16 @@ func Md5ToUpperString(bytes [16]byte) string {
 // Md5ToLowerString converts an MD5 []byte hash into a lowercase hex string
 func Md5ToLowerString(bytes [16]byte) string {
 	return convertBytesToString(16, hexStrLowers, bytes[0:16])
+}
+
+func convertBytesToString(size int, chars []byte, source []byte) string {
+	var sb strings.Builder
+	sb.Grow(size*2)
+	
+	for i := 0; i < size; i++ {
+		pos := int(source[i]) * 2
+		sb.Write(chars[pos:pos+2])
+	}
+
+	return sb.String()
 }
